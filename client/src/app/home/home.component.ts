@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalVariable } from '../globals';
 import { Router } from "@angular/router";
-import { Student } from '../student';
+import { User } from '../user';
 import { Course } from '../course';
 import { CourseService } from '../course.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-home',
@@ -24,9 +25,12 @@ export class HomeComponent implements OnInit {
 
   addCourseForm: FormGroup;
 
-  student: Student;
+  user: User;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private courseService: CourseService) {
+  constructor(private formBuilder: FormBuilder, 
+    private router: Router, 
+    private courseService: CourseService, 
+    private authService: AuthenticationService) {
 
     this.addCourseForm = this.formBuilder.group({
       courseName: ['', Validators.required],
@@ -48,12 +52,12 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!(GlobalVariable.student._id)) {
-      console.log('no user found !');
-      this.router.navigate(['/']);
-    }
     this.getCourses();
-    this.student = GlobalVariable.student;
+    this.authService.currentUser.subscribe( user=> this.user = user);
+  }
+
+  logout() {
+    this.authService.signOut();
   }
 
   showEditForm(course) {

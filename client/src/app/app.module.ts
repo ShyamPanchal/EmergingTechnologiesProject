@@ -14,6 +14,8 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import 'hammerjs';
 
 import { MatTabsModule } from '@angular/material';
+import { SessionService } from './authentication/auth/session.service';
+import { AuthGuard } from './authentication/auth/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,7 @@ import { MatTabsModule } from '@angular/material';
     NoopAnimationsModule,
     MatTabsModule
   ],
-  providers: [],
+  providers: [SessionService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

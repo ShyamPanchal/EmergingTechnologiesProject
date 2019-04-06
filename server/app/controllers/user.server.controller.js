@@ -1,5 +1,5 @@
 // Load the module dependencies
-const Student = require('mongoose').model('Student');
+const User = require('mongoose').model('User');
 const passport = require('passport');
 
 // Create a new error handling controller method
@@ -13,7 +13,7 @@ const getErrorMessage = function (err) {
             // If a unique index error occurs set the message error
             case 11000:
             case 11001:
-                message = 'Username already exists';
+                message = 'User already exists';
                 break;
             // If a general error occurs set the message error
             default:
@@ -54,7 +54,7 @@ exports.signin = function (req, res, next) {
 
 // Create a new controller method that creates new 'regular' users
 exports.signup = function (req, res) {
-    const user = new Student(req.body);
+    const user = new User(req.body);
     user.provider = 'local';
 
     // Try saving the User
@@ -79,13 +79,26 @@ exports.signup = function (req, res) {
         }
     });
 }
+
+exports.read = function (req, res) {
+    User.find({_id: req.params.id }, function(err,result){
+        console.log(err);
+        console.log(result);
+        if (err) {
+            res.json(err);
+        }
+        else {
+            res.json(result);
+        }
+    });
+};
 //#region for other profiles
 // Create a new controller method that creates new 'OAuth' users
 
 /*
 exports.saveOAuthUserProfile = function (req, profile, done) {
     // Try finding a user document that was registered using the current OAuth provider
-    Student.findOne({
+    User.findOne({
         provider: profile.provider,
         providerId: profile.providerId
     }, (err, user) => {

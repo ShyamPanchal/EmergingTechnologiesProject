@@ -1,6 +1,6 @@
-import { Student } from './student';
+import { User } from './user';
 
 export const GlobalVariable = {
   testString: 'something',
-  student: new Student()
+  user: new User()
 };

@@ -27,7 +27,7 @@ const CourseSchema = new Schema({
     },
     creator: {
         type: Schema.ObjectId,
-        ref: 'Student'
+        ref: 'User'
     }
 });
 mongoose.model('Course', CourseSchema);

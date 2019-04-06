@@ -55,7 +55,7 @@ module.exports = function () {
 
     // Load the routing files	
     
-    require('../app/routes/student.server.routes.js')(app);
+    require('../app/routes/user.server.routes.js')(app);
     require('../app/routes/course.server.routes.js')(app);
     require('../app/routes/index.server.routes.js')(app);
 

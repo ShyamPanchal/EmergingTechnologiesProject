@@ -1,5 +1,5 @@
 {
-  "name": "shyamaniruddhapanchallab03",
+  "name": "comp308project2019",
   "version": "1.0.0",
   "description": "lab 03",
   "main": "server.js",
@@ -22,6 +22,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "Shyam Panchal",
+  "author": "Shyam Panchal & Frederico Alexandre",
   "license": "ISC"
 }

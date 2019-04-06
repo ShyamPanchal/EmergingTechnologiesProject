@@ -19,14 +19,14 @@ export class CourseService {
   addCourse(course: Course){
     let headers = new Headers();
     headers.append('Content-type','application/json');
-    return this.http.post('http://localhost:1337/api/courses',{course: course, user: GlobalVariable.student}, {headers: headers})
+    return this.http.post('http://localhost:1337/api/courses',{course: course, user: GlobalVariable.user}, {headers: headers})
     .map(res => res.json());
   }
 
   updateCourse(course){
     let headers = new Headers();
     headers.append('Content-type','application/json');
-    return this.http.put('http://localhost:1337/api/courses/'+course._id,{course: course, user: GlobalVariable.student}, { headers: headers})
+    return this.http.put('http://localhost:1337/api/courses/'+course._id,{course: course, user: GlobalVariable.user}, { headers: headers})
     .map(res => res.json());
   }
 

@@ -1,12 +1,11 @@
-export class Student{
+export class User{
     _id?: string;
     firstName: string;
     lastName: string;
     address: string;
     city: string;
     phoneNumber: string;
-    program: string;
     email: string;
-    studentNumber: string;
+    isNurse: boolean;
     password?: string;
 }

@@ -4,20 +4,20 @@ const mongoose = require('mongoose');
 
 // Define the Passport configuration method
 module.exports = function () {
-    // Load the 'Student' model
-    const Student = mongoose.model('Student');
+    // Load the 'User' model
+    const User = mongoose.model('User');
 
-    // Use Passport's 'serializeUser' method to serialize the student id
-    passport.serializeUser((student, done) => {
-        done(null, student.id);
+    // Use Passport's 'serializeUser' method to serialize the user id
+    passport.serializeUser((user, done) => {
+        done(null, user.id);
     });
 
-    // Use Passport's 'deserializeStudent' method to load the student document
+    // Use Passport's 'deserializeUser' method to load the user document
     passport.deserializeUser((id, done) => {
-        Student.findOne({
+        User.findOne({
             _id: id
-        }, '-password -salt', (err, student) => {
-            done(err, student);
+        }, '-password -salt', (err, user) => {
+            done(err, user);
         });
     });
 

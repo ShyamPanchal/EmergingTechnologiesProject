@@ -67,28 +67,11 @@
                         </div>
                     </div>
                     <!-- #endregion -->
-
-                    <!-- #region Program -->
+                    <hr width="100%">
+                    <!-- #region User Type -->
                     <div class="form-group">
-                        <label>Program</label>
-                        <input type="text" formControlName="program" class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f.program.errors }" />
-                        <div *ngIf="submitted && f.program.errors" class="invalid-feedback">
-                            <div *ngIf="f.program.errors.required">Program Name is required</div>
-                        </div>
-                    </div>
-                    <!-- #endregion -->
-
-                    <!-- #region Student Number -->
-                    <div class="form-group">
-                        <label>Student Number</label>
-                        <input type="text" formControlName="studentNumber" class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f.studentNumber.errors }" />
-                        <div *ngIf="submitted && f.studentNumber.errors" class="invalid-feedback">
-                            <div *ngIf="f.studentNumber.errors.required">Student Number is required</div>
-                            <div *ngIf="f.studentNumber.errors.minlength || f.studentNumber.errors.maxlength">Student
-                                Number must be exactly 9 characters</div>
-                        </div>
+                        <input type="radio" class="radio" id="nurse" formControlName="isNurse" value="true" [checked]="isNurse" ><label for="nurse">I am a Nurse</label><br>
+                        <input type="radio" class="radio" id="patient" formControlName="isNurse" value="false" [checked]="!isNurse"><label for="patient">I am a Patient</label><br>
                     </div>
                     <!-- #endregion -->
 

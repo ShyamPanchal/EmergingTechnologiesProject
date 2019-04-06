@@ -3,27 +3,18 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 const Schema = mongoose.Schema;
 
-// Define a new 'StudentSchema'
-const StudentSchema = new Schema({
+// Define a new 'UserSchema'
+const UserSchema = new Schema({
     firstName: String,
     lastName: String,
     address: String,
     city: String,
     phoneNumber: String,
-    program: String,
+    isNurse: Boolean,
     email: {
         type: String,
         // Validate the email format
         match: [/.+\@.+\..+/, "Please fill a valid email address"]
-    },
-    studentNumber: {
-        type: String,
-        // Set a unique 'studentNumber' index
-        unique: true,
-        // Validate 'studentNumber' value existance
-        required: 'Student Number is required',
-        // Trim the 'studentNumber' field
-        trim: true
     },
     password: {
         type: String,
@@ -52,7 +43,7 @@ const StudentSchema = new Schema({
 });
 
 // Set the 'fullname' virtual property
-StudentSchema.virtual('fullName').get(function () {
+UserSchema.virtual('fullName').get(function () {
     return this.firstName + ' ' + this.lastName;
 }).set(function (fullName) {
     const splitName = fullName.split(' ');
@@ -61,7 +52,7 @@ StudentSchema.virtual('fullName').get(function () {
 });
 
 // Use a pre-save middleware to hash the password
-StudentSchema.pre('save', function (next) {
+UserSchema.pre('save', function (next) {
     if (this.password) {
         this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
         this.password = this.hashPassword(this.password);
@@ -71,32 +62,32 @@ StudentSchema.pre('save', function (next) {
 });
 
 // Create an instance method for hashing a password
-StudentSchema.methods.hashPassword = function (password) {
+UserSchema.methods.hashPassword = function (password) {
     //digest parameter required in version 9 of Node.js
     return crypto.pbkdf2Sync(password, this.salt, 10000, 64, 'sha512').toString('base64');
 };
 
-// Create an instance method for authenticating student
-StudentSchema.methods.authenticate = function (password) {
+// Create an instance method for authenticating User
+UserSchema.methods.authenticate = function (password) {
     return this.password === this.hashPassword(password);
 };
 
-// Find possible not used studentNumber
-StudentSchema.statics.findUniqueStudentNumber = function (studentNumber, suffix, callback) {
-    // Add a 'studentNumber' suffix
-    const possibleStudentNumber = studentNumber + (suffix || '');
+// Find possible not used email
+UserSchema.statics.findUniqueEmail = function (email, suffix, callback) {
+    // Add a 'email' suffix
+    const possibleEmail = email + (suffix || '');
 
     // Use the 'User' model 'findOne' method to find an available unique username
     this.findOne({
-        studentNumber: possibleStudentNumber
-    }, (err, student) => {
+        possibleEmail: possibleEmail
+    }, (err, User) => {
         // If an error occurs call the callback with a null value, otherwise find find an available unique username
         if (!err) {
             // If an available unique username was found call the callback method, otherwise call the 'findUniqueUsername' method again with a new suffix
-            if (!student) {
-                callback(possibleStudentNumber);
+            if (!User) {
+                callback(possibleEmail);
             } else {
-                return this.findUniqueUsername(studentNumber, (suffix || 0) + 1, callback);
+                return this.findUniqueEmail(email, (suffix || 0) + 1, callback);
             }
         } else {
             callback(null);
@@ -104,11 +95,11 @@ StudentSchema.statics.findUniqueStudentNumber = function (studentNumber, suffix,
     });
 };
 
-// Configure the 'StudentSchema' to use getters and virtuals when transforming to JSON
-StudentSchema.set('toJSON', {
+// Configure the 'UserSchema' to use getters and virtuals when transforming to JSON
+UserSchema.set('toJSON', {
     getters: true,
     virtuals: true
 });
 
-// Create the 'Student' model out of the 'StudentSchema'
-mongoose.model('Student', StudentSchema);
+// Create the 'User' model out of the 'UserSchema'
+mongoose.model('User', UserSchema);

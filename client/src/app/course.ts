@@ -1,4 +1,4 @@
-import { Student } from './student';
+import { User } from './user';
 
 export class Course{
     _id?: string;
@@ -6,5 +6,5 @@ export class Course{
     courseCode: string;
     section: string;
     semester: string;
-    creator?: Student;
+    creator?: User;
 }

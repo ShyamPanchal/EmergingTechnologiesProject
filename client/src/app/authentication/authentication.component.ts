@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalVariable } from '../globals';
 import { Router } from "@angular/router";
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-authentication',
@@ -9,12 +10,11 @@ import { Router } from "@angular/router";
 })
 export class AuthenticationComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private authService: AuthenticationService) { }
 
   ngOnInit() {
-    //GlobalVariable.student._id = "5c96d327088222566858c52d";
-    if (GlobalVariable.student._id) {
-      console.log("Student found with id: " + GlobalVariable.student._id);
+    if (this.authService.isAuthenticated) {
       this.router.navigate(['/home']);
     }
   }

@@ -7,8 +7,8 @@ module.exports = function () {
     // Use Mongoose to connect to MongoDB
     const db = mongoose.connect(config.db);
 
-    // Load the 'Student' model 
-    require('../app/models/student.server.model');
+    // Load the 'User' model 
+    require('../app/models/user.server.model');
     // Load the 'Course' model 
     require('../app/models/course.server.model');
 
