@@ -1,0 +1,152 @@
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="/home">Shyam Aniruddha Panchal: Lab 03</a>
+  <a class="nav-item nav-link my-2 my-lg-0" href="/">Sign Out</a>
+</nav>
+<div style="width:70%; height: 100%; margin: auto; margin-top: 1%">
+  <div class="jumbotron">
+    <mat-tab-group mat-stretch-tabs>
+
+      <!-- #region Course Details -->
+      <mat-tab label="Program Overview">
+        <div class="container">
+          <br>
+          <p class="h3">Program Overview</p>
+          <hr>
+          <br>
+
+          <!-- #region Add Course -->
+          <div>
+            <div class="card">
+              <div class="card-header">
+                <button type="button" name="addCourseButton" (click)="toggleAddCourse()" *ngIf="!toogleForm"
+                  class="btn btn-link">Add
+                  Course</button>
+
+                <button type="button" name="editCourseButton" (click)="toggleAddCourse()" *ngIf="toogleForm"
+                  class="btn btn-link">Edit Course</button>
+              </div>
+              <div class="card-body" *ngIf="addCourseVisible">
+                <form [formGroup]="addCourseForm" (ngSubmit)="addCourse()">
+                  <div class="form-group">
+                    <label>Course Name</label>
+                    <input type="text" formControlName="courseName" class="form-control"
+                      [ngClass]="{ 'is-invalid': submitted && f.courseName.errors }" />
+                    <div *ngIf="submitted && f.courseName.errors" class="invalid-feedback">
+                      <div *ngIf="f.courseName.errors.required">Course Name is required</div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Course Code</label>
+                    <input type="text" formControlName="courseCode" class="form-control"
+                      [ngClass]="{ 'is-invalid': submitted && f.courseCode.errors }" />
+                    <div *ngIf="submitted && f.courseCode.errors" class="invalid-feedback">
+                      <div *ngIf="f.courseCode.errors.required">Course Code is required</div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Section</label>
+                    <input type="text" formControlName="section" class="form-control"
+                      [ngClass]="{ 'is-invalid': submitted && f.section.errors }" />
+                    <div *ngIf="submitted && f.section.errors" class="invalid-feedback">
+                      <div *ngIf="f.section.errors.required">Section is required</div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Semester</label>
+                    <input type="text" formControlName="semester" class="form-control"
+                      [ngClass]="{ 'is-invalid': submitted && f.semester.errors }" />
+                    <div *ngIf="submitted && f.semester.errors" class="invalid-feedback">
+                      <div *ngIf="f.semester.errors.required">Semester is required</div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <button class="btn btn-primary" *ngIf="!toogleForm">Add Course</button>
+
+                    <button type="button" class="btn btn-primary btn-space" *ngIf="toogleForm"
+                      (click)="editCourse()">Save</button>
+                    <button type="button" class="btn btn-warning btn-space" *ngIf="toogleForm"
+                      (click)="cancelEdit()">Cancel</button>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- #endregion -->
+
+
+          <!-- #region List -->
+          <br><br>
+          <h5>List Of Courses </h5>
+          <div class="row">
+            <div class="col">Course Name</div>
+            <div class="col">Course Code</div>
+            <div class="col">Course Section</div>
+            <div class="col">Course Semester</div>
+            <div class="col"></div>
+            <div class="col"></div>
+          </div>
+          <hr>
+          <div *ngFor="let course of courseList" class="row">
+            <div class="col">{{course.courseName}}</div>
+            <div class="col">{{course.courseCode}}</div>
+            <div class="col">{{course.section}}</div>
+            <div class="col">{{course.semester}}</div>
+            <div class="col">
+              <button type="button" name="button" class="btn btn-primary" (click)="showEditForm(course)"
+                [disabled]="toogleForm">Edit Course</button>
+            </div>
+            <div class="col">
+              <button type="button" name="button" class="btn btn-danger" (click)="deleteItem(course._id)">Drop
+                Course</button>
+            </div>
+            <br><br>
+          </div>
+          <!-- #endregion -->
+        </div>
+      </mat-tab>
+      <!-- #endregion -->
+
+      <!-- #region Student Details -->
+      <mat-tab label="Student Details">
+        <div class="container">
+          <br>
+          <p class="h3">Student Details</p>
+          <hr>
+          <br>
+          <div class="card card-body">
+          <dl class="row">
+            <dt class="col-sm-3">Student Name:</dt>
+            <dd class="col-sm-9">{{student.firstName + " " +student.lastName}}</dd>
+
+            <dt class="col-sm-3">Email:</dt>
+            <dd class="col-sm-9">{{student.email}}</dd>
+
+            <dt class="col-sm-3">Student Number:</dt>
+            <dd class="col-sm-9">{{student.studentNumber}}</dd>
+
+            <dt class="col-sm-3">Address:</dt>
+            <dd class="col-sm-9">
+              <p>{{student.address}}</p>
+              <p>{{student.city}}</p>
+            </dd>
+
+            <dt class="col-sm-3">Phone Number:</dt>
+            <dd class="col-sm-9">{{student.phoneNumber}}</dd>
+
+            <dt class="col-sm-3">Program:</dt>
+            <dd class="col-sm-9">{{student.program}}</dd>
+          </dl>
+        </div>
+
+        </div>
+      </mat-tab>
+      <!-- #endregion -->
+
+    </mat-tab-group>
+  </div>
+</div>
