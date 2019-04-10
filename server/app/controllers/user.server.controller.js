@@ -88,6 +88,8 @@ exports.read = function (req, res) {
             res.json(err);
         }
         else {
+            result[0].salt = "";
+            result[0].password = "";
             res.json(result);
         }
     });
