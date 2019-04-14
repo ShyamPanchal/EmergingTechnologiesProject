@@ -1,0 +1,16 @@
+<div class="container">
+        <br>
+        <p class="h3">Patients</p>
+        <hr>
+        <br>
+
+        <!-- #region Patients -->
+        <div>
+            <div class="card">
+                <div class="card-header" *ngFor="let patient of patientList">
+                    <app-info [user]="user" [patient]="patient"></app-info>
+                </div>
+            </div>
+        </div>
+        <!-- #endregion -->       
+</div>

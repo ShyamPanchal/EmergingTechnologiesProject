@@ -82,8 +82,8 @@ exports.signup = function (req, res) {
 
 exports.read = function (req, res) {
     User.find({_id: req.params.id }, function(err,result){
-        console.log(err);
-        console.log(result);
+        //console.log(err);
+        //console.log(result);
         if (err) {
             res.json(err);
         }

@@ -1,0 +1,18 @@
+<button type="button" name="logButton" (click)="toggleLog()" class="btn btn-link">{{log.created | date : "EEEE, MMMM d, y hh:mm:ss a"}}</button>
+<div class="card-body" *ngIf="logVisible">
+    <div class="card card-body">
+            <dl class="row">
+              <dt class="col-sm-6" style="display: block;">Body Temperature:</dt>
+              <dd class="col-sm-6">{{log.bodyTemperature}}</dd>
+    
+              <dt class="col-sm-6" style="display: inline;">Heart Rate:</dt>
+              <dd class="col-sm-6">{{log.heartRate}}</dd>
+    
+              <dt class="col-sm-6" style="display: inline;">Blood Pressure:</dt>
+              <dd class="col-sm-6">{{log.bloodPressure}}</dd>
+    
+              <dt class="col-sm-6" style="display: inline;">Respiratory Rate:</dt>
+              <dd class="col-sm-6">{{log.respiratoryRate}}</dd>
+            </dl>
+          </div>
+</div>

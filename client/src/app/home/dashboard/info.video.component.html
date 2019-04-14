@@ -1,0 +1,6 @@
+<button type="button" name="patientButton" (click)="toggle()" class="btn btn-link">{{video.title}}</button>
+<div class="card-body" *ngIf="visible">
+    <div class="card-body">
+        <app-play-video [video]="video"></app-play-video>
+    </div>
+</div>

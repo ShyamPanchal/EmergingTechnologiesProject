@@ -1,0 +1,16 @@
+<div class="card-body">
+      <form [formGroup]="sendAlertForm" (ngSubmit)="send()">
+        <div class="form-group">
+          <label>Alert</label>
+          <input formControlName="alert" class="form-control" rows="5"
+          [ngClass]="{ 'is-invalid': submitted && f.alert.errors }"/>            
+          <div *ngIf="submitted && f.alert.errors" class="invalid-feedback">
+            <div *ngIf="f.alert.errors.required">Alert is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary">Send Alert</button>
+        </div>
+
+      </form>
+    </div>

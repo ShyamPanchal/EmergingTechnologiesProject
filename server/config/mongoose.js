@@ -13,6 +13,7 @@ module.exports = function () {
     require('../app/models/logs.server.model');
     require('../app/models/comments.server.model');
     require('../app/models/alerts.server.model');
+    require('../app/models/videos.server.model');
 
     // Return the Mongoose connection instance
     return db;

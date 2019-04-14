@@ -1,0 +1,7 @@
+<button type="button" name="tipbutton" (click)="toggle()" 
+class="btn btn-link">sent by {{comment.createdBy}}</button>
+<div class="card-body" *ngIf="visible">
+    <div class="card card-body">
+            {{comment.dailyTips}}
+    </div>
+</div>

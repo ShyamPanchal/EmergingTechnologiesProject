@@ -8,6 +8,7 @@ import { distinctUntilChanged } from 'rxjs/operators';
 import { map, catchError } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { GlobalVariable } from './globals';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -31,14 +32,14 @@ export class AuthenticationService {
   signOut() {
     this.purgeAuth();
     let headers = new Headers();
-    return this.http.get('http://localhost:1337/api/auth/signout', { headers: headers }).subscribe;
+    return this.http.get(`${environment.url}`+'api/auth/signout', { headers: headers }).subscribe;
   }
 
   signup(user: User) {
     let headers = new Headers();
     headers.append('Content-type', 'application/json');
 
-    return this.http.post('http://localhost:1337/api/auth/signup', user, { headers: headers })
+    return this.http.post(`${environment.url}`+'api/auth/signup', user, { headers: headers })
       .map(res => res.json());
   }  
 
@@ -46,7 +47,7 @@ export class AuthenticationService {
     let headers = new Headers();
     headers.append('Content-type', 'application/json');
 
-    return this.http.post('http://localhost:1337/api/auth/signin', credentials, { headers: headers })
+    return this.http.post(`${environment.url}`+'api/auth/signin', credentials, { headers: headers })
     .map( res => {
       this.setAuth(res.json() as User);
       return this.user;
@@ -56,7 +57,7 @@ export class AuthenticationService {
   getProfile() {  
     let headers = new Headers();
     headers.append('Content-type', 'application/json');
-    return this.http.get('http://localhost:1337/api/auth/get/'+this.session.getUserId(), { headers: headers })
+    return this.http.get(`${environment.url}`+'api/auth/get/'+this.session.getUserId(), { headers: headers })
     .subscribe(res => {
         let user = res.json()[0] as User;
         if (user._id) {
@@ -68,8 +69,12 @@ export class AuthenticationService {
       err=>{
         this.purgeAuth();
         console.log('console error ' + err);
-    });   
-    
+    });       
+  }
+
+  getUser(id: string) {
+    return this.http.get(`${environment.url}`+'api/auth/get/'+id)
+    .map(res => res.json());       
   }
 
   private purgeAuth() {

@@ -1,0 +1,16 @@
+<div class="card-body">
+        <form [formGroup]="addTipForm" (ngSubmit)="addLog()">
+          <div class="form-group">
+            <label>Tip</label>
+            <textarea formControlName="tip" class="form-control" rows="5"
+            [ngClass]="{ 'is-invalid': submitted && f.tip.errors }"></textarea>            
+            <div *ngIf="submitted && f.tip.errors" class="invalid-feedback">
+              <div *ngIf="f.tip.errors.required">Tip is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary">Add Tip</button>
+          </div>
+
+        </form>
+      </div>

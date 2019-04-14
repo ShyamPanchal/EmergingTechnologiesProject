@@ -1,0 +1,4 @@
+<button type="button" name="patientButton" (click)="toggle()" class="btn btn-link">{{patient.firstName}} {{patient.lastName}}</button>
+<div class="card-body" *ngIf="visible">
+    <app-view-patient [user]="user" [patient]="patient"></app-view-patient>
+</div>

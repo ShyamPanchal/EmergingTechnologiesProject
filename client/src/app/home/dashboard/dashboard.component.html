@@ -1,0 +1,34 @@
+<div class="container">
+        <br>
+        <p class="h3">Dashboard</p>
+        <hr>
+        <br>
+        <!-- #region DashBoard -->
+        <mat-tab-group mat-stretch-tabs (selectedTabChange)="onLinkClick($event)">
+                <!-- #region -->
+                <mat-tab label="Send Alert" >
+                        <app-send-alert [user]="user" [nurse]="nurse"></app-send-alert>
+                </mat-tab>
+                <!-- #endregion -->
+                
+                <!-- #region -->
+                <mat-tab label="Check Symptoms" >
+
+                </mat-tab>
+                <!-- #endregion -->
+                
+                
+                <!-- #region -->
+                <mat-tab label="Add Log" >
+                        <app-add-log [user]="nurse" [patient]="user"></app-add-log>
+                </mat-tab>
+                <!-- #endregion -->
+                
+                <!-- #region -->
+                <mat-tab label="Informational Videos" >
+                        <app-videos [user]="user"></app-videos>
+                </mat-tab>
+                <!-- #endregion -->                
+        </mat-tab-group>
+        <!-- #endregion -->       
+</div>

@@ -6,6 +6,10 @@ import { Course } from '../course';
 import { CourseService } from '../course.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../authentication.service';
+import { DataService } from '../data.service';
+import { Tip, Alert } from '../data';
+import { interval } from 'rxjs';
+//import { userInfo } from 'os';
 
 @Component({
   selector: 'app-home',
@@ -14,124 +18,57 @@ import { AuthenticationService } from '../authentication.service';
 })
 export class HomeComponent implements OnInit {
 
-  courseList: Course[] = [];
-
-  selectedCourse: Course;
-
-  submitted: boolean = false;
-
-  toogleForm: boolean = false;
-  addCourseVisible: boolean = false;
-
-  addCourseForm: FormGroup;
-
   user: User;
+  nurse:User;
 
+  alertList: Alert[] = [];
+  commentList: Tip[] = [];
+  
   constructor(private formBuilder: FormBuilder, 
     private router: Router, 
-    private courseService: CourseService, 
+    private dataService:DataService,
     private authService: AuthenticationService) {
 
-    this.addCourseForm = this.formBuilder.group({
-      courseName: ['', Validators.required],
-      courseCode: ['', Validators.required],
-      section: ['', Validators.required],
-      semester: ['', Validators.required],
-    });
-
-  }
-  get f() { return this.addCourseForm.controls; }
-
-  getCourses() {
-
-    this.courseService.getCourses().subscribe(courses => {
-      this.courseList = courses;
-    });
-    console.log("course list: ");
-    console.log(this.courseList);
   }
 
   ngOnInit() {
-    this.getCourses();
     this.authService.currentUser.subscribe( user=> this.user = user);
+    this.update ();
+    /*
+    const secondsCounter = interval(5000);
+    secondsCounter.subscribe(n =>
+    {
+      this.update ();
+    });
+  */
   }
 
   logout() {
     this.authService.signOut();
-  }
+  }  
 
-  showEditForm(course) {
-    this.selectedCourse = course;
-    this.toogleForm = !this.toogleForm;
-
-    this.addCourseForm.controls['courseName'].setValue(course.courseName);
-    this.addCourseForm.controls['courseCode'].setValue(course.courseCode);
-    this.addCourseForm.controls['section'].setValue(course.section);
-    this.addCourseForm.controls['semester'].setValue(course.semester);
-
-    this.addCourseVisible = true;
-  }
-
-  cancelEdit() {
-    this.selectedCourse = null;
-    this.toogleForm = !this.toogleForm;
-  }
-
-  deleteItem(id) {
-    console.log(id);
-    this.courseService.deleteItem(id).subscribe(data => {
-      this.getCourses();
-    });
-    if (this.toogleForm) {
-      this.submitted = false;
-      this.addCourseForm.reset();
+  update () {
+    if (this.user.isNurse) {
+      this.dataService.getAlerts().subscribe(alerts => {
+        alerts.map(alert => {
+          this.dataService.getFullName(alert.createdBy).subscribe(
+            name => {
+            alert.createdBy = name;
+          });
+        });
+        this.alertList = alerts;
+      });
+    } else {
+      this.nurse = this.user;
+      this.dataService.getTips(this.user._id).subscribe(tips => {
+        tips.map(tip => {
+          this.dataService.getFullName(tip.createdBy).subscribe(
+            name => {
+            tip.createdBy = name;
+          });
+        });
+        this.commentList = tips;
+      });
     }
-  }
-
-  toggleAddCourse() {
-    this.addCourseVisible = !this.addCourseVisible;
-  }
-
-  addCourse() {
-    this.submitted = true;
-
-    let newCourse: Course = {
-      courseName: this.addCourseForm.value.courseName,
-      courseCode: this.addCourseForm.value.courseCode,
-      section: this.addCourseForm.value.section,
-      semester: this.addCourseForm.value.semester
-    };
-    this.courseService.addCourse(newCourse).subscribe(item => {
-      console.log(item);
-      this.getCourses();
-    });
-
-    this.submitted = false;
-    this.addCourseForm.reset();
-  }
-
-  editCourse() {
-
-    this.submitted = true;
-
-    let newCourse: Course = {
-      courseName: this.addCourseForm.value.courseName,
-      courseCode: this.addCourseForm.value.courseCode,
-      section: this.addCourseForm.value.section,
-      semester: this.addCourseForm.value.semester,
-      _id: this.selectedCourse._id,
-      creator: this.selectedCourse.creator
-    };
-
-    console.log(newCourse);
-
-    this.courseService.updateCourse(newCourse).subscribe(item => {
-      console.log(item);
-      this.getCourses();
-      this.toogleForm = !this.toogleForm;
-    });
-
-    this.submitted = false;
-    this.addCourseForm.reset();
   }
 }

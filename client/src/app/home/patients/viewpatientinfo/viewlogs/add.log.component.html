@@ -1,0 +1,50 @@
+<div class="card-body">
+        <form [formGroup]="addLogForm" (ngSubmit)="addLog()">
+          <div class="form-group">
+            <label>Body Temperature</label>
+            <input type="number" formControlName="bodyTemperature" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.bodyTemperature.errors }" />
+            <div *ngIf="submitted && f.bodyTemperature.errors" class="invalid-feedback">
+              <div *ngIf="f.bodyTemperature.errors.required">Body Temperature is required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Heart Rate</label>
+            <input type="number" formControlName="heartRate" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.heartRate.errors }" />
+            <div *ngIf="submitted && f.heartRate.errors" class="invalid-feedback">
+              <div *ngIf="f.heartRate.errors.required">Heart Rate is required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Blood Pressure Max / Min</label>
+            <input type="number" formControlName="bloodPressureMax" class="form-control" placeholder="Max"
+              [ngClass]="{ 'is-invalid': submitted && f.bloodPressureMax.errors }" />
+            <input type="number" formControlName="bloodPressureMin" class="form-control" placeholder="Min"
+              [ngClass]="{ 'is-invalid': submitted && f.bloodPressureMin.errors }" />
+            <div *ngIf="submitted && f.bloodPressureMax.errors" class="invalid-feedback">
+              <div *ngIf="f.bloodPressureMax.errors.required">Blood Pressure (Max) is required</div>
+            </div>
+            <div *ngIf="submitted && f.bloodPressureMin.errors" class="invalid-feedback">
+              <div *ngIf="f.bloodPressureMin.errors.required">Blood Pressure (Min) is required</div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <label>Respiratory Rate</label>
+            <input type="number" formControlName="respiratoryRate" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.respiratoryRate.errors }" />
+            <div *ngIf="submitted && f.respiratoryRate.errors" class="invalid-feedback">
+              <div *ngIf="f.respiratoryRate.errors.required">Respiratory Rate is required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-primary">Add Log</button>
+          </div>
+
+        </form>
+      </div>

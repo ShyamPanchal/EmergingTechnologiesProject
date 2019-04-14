@@ -3,11 +3,12 @@ const Logs = mongoose.model('Logs');
 const Comments = mongoose.model('Comments');
 const Alerts = mongoose.model('Alerts');
 const User = mongoose.model('User');
+const Videos = mongoose.model('Videos');
 
 //#region Logs
 
 exports.createLog = function (req, res) {
-    const log = new Logs(req.body);
+    const log = new Logs(req.body.log);
 
     console.log("create log called with log: ");
     console.log(log);
@@ -40,7 +41,7 @@ exports.readAllLogs = function (req, res) {
 //#region Comments
 
 exports.createComment = function (req, res) {
-    const comment = new Comments(req.body);
+    const comment = new Comments(req.body.comment);
 
     console.log("create comment called with: ");
     console.log(comment);
@@ -111,7 +112,7 @@ exports.deleteComment = function (req, res) {
 
 //#region Alerts
 exports.createAlert = function (req, res) {
-    const alert = new Alerts(req.body);
+    const alert = new Alerts(req.body.alert);
 
     console.log("create comment called with: ");
     console.log(alert);
@@ -192,3 +193,73 @@ exports.list = function (req, res) {
 };
 
 //#endregion
+
+exports.getAllPatients = function (req, res) {
+    User.find({isNurse: false},function(err,result){
+        if(err){
+            res.json(err);
+        }
+        else{
+            res.json(result);
+        }
+    });
+}
+
+exports.getFullName = function (req, res) {
+    User.find({_id: req.params.id }, function(err,result){
+        console.log(err);
+        console.log(result);
+        if (err) {
+            res.json(err);
+        }
+        else {
+            result[0].salt = "";
+            result[0].password = "";
+            res.json(result[0].firstName + " " + result[0].lastName);
+            console.log(result[0].getFullName);
+        }
+    });
+};
+
+
+exports.createVideo = function (req, res) {
+    const video = new Videos(req.body.video);
+
+    console.log("create video called with log: ");
+    console.log(video);
+
+    video.save((err) => {
+        if (err) {
+            return res.status(400).send({
+                message: getErrorMessage(err)
+            });
+        }
+        else {
+            res.status(200).json(video);
+        }
+    });
+}
+
+exports.readAllVideos = function (req, res) {
+    Videos.find(function (err, result) {
+        if (err) {
+            res.json(err);
+        }
+        else {
+            res.json(result);
+        }
+    }).sort({ created: -1 });
+}
+
+exports.replaceVideo = function (req, res) {
+    Videos.findByIdAndUpdate({ _id: req.params.id }, {
+        $set: req.body.video
+    }, function (err, result) {
+        if (err) {
+            res.json(err);
+        }
+        else {
+            res.json(result);
+        }
+    });
+}

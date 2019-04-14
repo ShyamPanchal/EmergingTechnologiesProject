@@ -19,4 +19,14 @@ module.exports = function (app) {
     app.route('/api/alerts/:id').delete(data.dismissAlert);
 
     app.route('/api/alerts/getAll').get(data.getAllAlerts);
+    
+    app.route('/api/patients/getAll').get(data.getAllPatients);
+    
+    app.route('/api/name/fullName/:id').get(data.getFullName);
+
+    app.route('/api/videos/create').post(data.createVideo);
+
+    app.route('/api/videos/getAll').get(data.readAllVideos);
+
+    app.route('/api/videos/:id').put(data.replaceVideo);
 };
