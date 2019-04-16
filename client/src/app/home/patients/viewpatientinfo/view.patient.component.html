@@ -4,7 +4,7 @@
         <div>
             <div class="card">
                 <div class="card-header" *ngFor="let log of logList">
-                    <app-view-log [log]="log"></app-view-log>
+                    <app-view-log (callback)="update()" [log]="log"></app-view-log>
                 </div>
             </div>
         </div>

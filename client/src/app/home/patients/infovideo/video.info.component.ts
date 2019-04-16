@@ -19,6 +19,7 @@ export class VideoInfoComponent implements OnInit {
     @Input() newVideo:boolean;
     @Output() canceled: EventEmitter<VideoUrl> = new EventEmitter<VideoUrl>();
     @Output() added: EventEmitter<VideoUrl> = new EventEmitter<VideoUrl>();
+    @Output() callback: EventEmitter<VideoUrl> = new EventEmitter<VideoUrl>();
 
     toggle() {
         this.visible = !this.visible;
@@ -52,6 +53,15 @@ export class VideoInfoComponent implements OnInit {
     this.canceled.emit(this.video);
     //this.saveVideoForm.reset();
     this.toggle();
+  }
+  
+  dismiss() {
+    this.dataService.deleteVideo(this.video._id).subscribe(
+      res=>{
+        console.log("Video Deleted");
+        this.callback.emit(this.video);
+      }
+    );
   }
   
   saveVideo() {    

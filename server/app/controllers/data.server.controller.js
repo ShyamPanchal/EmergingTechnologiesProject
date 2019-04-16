@@ -36,6 +36,20 @@ exports.readAllLogs = function (req, res) {
     }).sort({ created: -1 });
 }
 
+exports.deleteLog = function (req, res) {
+    Logs.remove({ _id: req.params.id }, function (err, result) {
+        console.log(err);
+        console.log(result);
+        if (err) {
+            res.json(err);
+        }
+        else {
+            res.json(result);
+        }
+    });
+}
+
+
 //#endregion
 
 //#region Comments
@@ -66,7 +80,7 @@ exports.getCommentsFor = function (req, res) {
         else {
             res.json(result);
         }
-    });
+    }).sort({ created: -1 });
 }
 
 exports.getCommentsBy = function (req, res) {
@@ -79,7 +93,7 @@ exports.getCommentsBy = function (req, res) {
         else {
             res.json(result);
         }
-    });
+    }).sort({ created: -1 });
 }
 
 exports.replaceComment = function (req, res) {
@@ -152,7 +166,7 @@ exports.getAllAlerts = function (req, res) {
         else{
             res.json(result);
         }
-    });
+    }).sort({ created: -1 });
 }
 //#endregion
 
@@ -255,6 +269,19 @@ exports.replaceVideo = function (req, res) {
     Videos.findByIdAndUpdate({ _id: req.params.id }, {
         $set: req.body.video
     }, function (err, result) {
+        if (err) {
+            res.json(err);
+        }
+        else {
+            res.json(result);
+        }
+    });
+}
+
+exports.deleteVideo = function (req, res) {
+    Videos.remove({ _id: req.params.id }, function (err, result) {
+        console.log(err);
+        console.log(result);
         if (err) {
             res.json(err);
         }

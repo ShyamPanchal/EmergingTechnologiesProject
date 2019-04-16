@@ -35,14 +35,18 @@ export class VideoComponent implements OnInit {
     addVideo() {
       this.videos.push({ title:"", url:""} as VideoUrl);
     }
-    addedVideo(addedVideo: VideoUrl) {
+
+    update() {
       this.dataService.getVideos().subscribe(
         videos => this.videos = videos);
     }
 
+    addedVideo(addedVideo: VideoUrl) {
+      this.update();
+    }
+
     removeVideo(canceledVideo: VideoUrl) {
-      this.dataService.getVideos().subscribe(
-        videos => this.videos = videos);
+      this.update();
       /*
 
       console.log("title: " + JSON.stringify(canceledVideo.title));

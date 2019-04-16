@@ -1,4 +1,4 @@
-<button type="button" name="logButton" (click)="toggleLog()" class="btn btn-link">{{log.created | date : "EEEE, MMMM d, y hh:mm:ss a"}}</button>
+<button type="button" name="logButton" (click)="toggleLog()" class="btn btn-link">{{log.created | date : "EEEE, MMMM d, y hh:mm:ss a"}}</button><span (click)="dismiss()" style="float:right;cursor: pointer;color: red;margin-top: 10px;"><span class="far fa-times-circle"></span></span>
 <div class="card-body" *ngIf="logVisible">
     <div class="card card-body">
             <dl class="row">

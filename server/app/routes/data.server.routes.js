@@ -16,6 +16,10 @@ module.exports = function (app) {
 
     app.route('/api/alerts/create').post(data.createAlert);
 
+    app.route('/api/comments/:id').delete(data.deleteComment);
+
+    app.route('/api/logs/:id').delete(data.deleteLog);
+
     app.route('/api/alerts/:id').delete(data.dismissAlert);
 
     app.route('/api/alerts/getAll').get(data.getAllAlerts);
@@ -27,6 +31,8 @@ module.exports = function (app) {
     app.route('/api/videos/create').post(data.createVideo);
 
     app.route('/api/videos/getAll').get(data.readAllVideos);
+
+    app.route('/api/videos/:id').delete(data.deleteVideo);
 
     app.route('/api/videos/:id').put(data.replaceVideo);
 };

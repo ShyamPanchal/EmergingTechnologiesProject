@@ -1,4 +1,4 @@
-<button type="button" name="patientButton" (click)="toggle()" class="btn btn-link">{{video.title}}</button>
+<button type="button" name="patientButton" (click)="toggle()" class="btn btn-link">{{video.title}}</button><span (click)="dismiss()" style="float:right;cursor: pointer;color: red"><span class="far fa-times-circle"></span></span>
 <div class="card-body" *ngIf="visible">
     <div class="card-body">
         <form [formGroup]="saveVideoForm" (ngSubmit)="saveVideo()">
@@ -14,8 +14,8 @@
                 </div>
             </div>
         <div class="form-group">
-            <button class="btn btn-primary">Save Video</button>
-            <button style="margin-left:5px" class="btn btn-primary" type="button" (click)="cancel()">Cancel Video</button>
+            <button class="btn btn-primary">Save</button>
+            <button style="margin-left:5px" class="btn btn-primary" type="button" (click)="cancel()">Cancel</button>
         </div>                
         </form>
     </div>

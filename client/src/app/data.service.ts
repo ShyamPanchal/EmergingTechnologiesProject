@@ -54,6 +54,10 @@ export class DataService {
     .map(res => res.json());
   }
 
+  deleteVideo(id:string) {
+    return this.http.delete(`${environment.url}`+'api/videos/' + id).map(res => res.json());
+  }
+
   getVideos(){
     return this.http.get(`${environment.url}`+'api/videos/getAll').map(res => res.json());
   }
@@ -69,6 +73,17 @@ export class DataService {
     return this.http.get(`${environment.url}`+'api/alerts/getAll').map(res => res.json());
   }
 
+  dismissLog(id:string)  {
+    return this.http.delete(`${environment.url}`+'api/logs/' + id).map(res => res.json());
+  }
+
+  dismissAlert(id:string)  {
+    return this.http.delete(`${environment.url}`+'api/alerts/' + id).map(res => res.json());
+  }
+
+  dismissComment(id:string)  {
+    return this.http.delete(`${environment.url}`+'api/comments/' + id).map(res => res.json());
+  }
 
   getTips(patientId:string){
     return this.http.get(`${environment.url}`+'api/comments/getFor/' + patientId).map(res => res.json());

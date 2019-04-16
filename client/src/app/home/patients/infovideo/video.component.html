@@ -3,6 +3,6 @@
 </div> 
 <div class="card"> 
     <div class="card-header" *ngFor="let video of videos">
-        <app-video-info [user]="user" [video]="video" [newVideo]="newVideo" (canceled)="removeVideo($event)" (canceled)="addedVideo($event)"></app-video-info>
+        <app-video-info [user]="user" [video]="video" [newVideo]="newVideo" (canceled)="removeVideo($event)" (added)="addedVideo($event)" (callback)="update()"></app-video-info>
     </div>
 </div>

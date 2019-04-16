@@ -34,13 +34,13 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.authService.currentUser.subscribe( user=> this.user = user);
     this.update ();
-    /*
+    
     const secondsCounter = interval(5000);
     secondsCounter.subscribe(n =>
     {
       this.update ();
     });
-  */
+  
   }
 
   logout() {

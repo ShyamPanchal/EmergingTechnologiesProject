@@ -1,5 +1,5 @@
 <button type="button" name="tipbutton" (click)="toggle()" 
-class="btn btn-link">sent by {{comment.createdBy}}</button>
+class="btn btn-link">sent by {{comment.createdBy}}</button><span (click)="dismiss()" style="float:right;cursor: pointer;color: red;"><span class="far fa-times-circle"></span></span>
 <div class="card-body" *ngIf="visible">
     <div class="card card-body">
             {{comment.dailyTips}}
