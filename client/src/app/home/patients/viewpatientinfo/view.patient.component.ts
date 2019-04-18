@@ -29,10 +29,8 @@ export class ViewPatientComponent implements OnInit {
     }    
     
     update() {
-      console.log("log update...  ");
       this.dataService.getLogs(this.patient._id).subscribe(logs => {
         this.logList = logs;
-        console.log("log list: ");
         console.log(this.logList);
       });
     }

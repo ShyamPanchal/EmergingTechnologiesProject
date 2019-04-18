@@ -34,6 +34,7 @@ import { VideosComponent } from './home/dashboard/videos.component';
 
 import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
 import { PlayVideoComponent } from './home/dashboard/play.video.component';
+import { CheckSymptomsComponent } from './home/checksymptoms/check.symptoms.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { PlayVideoComponent } from './home/dashboard/play.video.component';
     VideoInfoComponent,
     InfoVideoComponent,
     VideosComponent,
-    PlayVideoComponent
+    PlayVideoComponent,
+    CheckSymptomsComponent
     
   ],
   imports: [
