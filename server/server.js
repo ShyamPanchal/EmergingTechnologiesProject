@@ -16,10 +16,13 @@ const app = configureExpress();
 const passport = configurePassport();
 
 // Use the Express application instance to listen to the '3000' port
-app.listen(1337);
+//app.listen(1337);
+app.listen(process.env.PORT || 4000, function(){
+    console.log('Your node js server is running');
+});
 
 // Log the server status to the console
-console.log('Server running at http://localhost:1337/');
+//console.log('Server running at http://localhost:1337/');
 
 // Use the module.exports property to expose our Express application instance for external usage
 module.exports = app;
