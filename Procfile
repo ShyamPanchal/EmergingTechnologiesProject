@@ -1,3 +1,3 @@
 //Procfile
 
-web: ng serve -o
+web: ng serve
