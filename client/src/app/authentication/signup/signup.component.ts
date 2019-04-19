@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 export class SignupComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;
+  isNurse:boolean = false;
 
   constructor(private formBuilder: FormBuilder, private authenticationService: AuthenticationService, private router:Router) { }
 

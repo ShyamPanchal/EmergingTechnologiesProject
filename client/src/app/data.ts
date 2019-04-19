@@ -6,6 +6,7 @@ export class Log {
 	respiratoryRate: number;
 	createdBy: string;
 	createdFor: string;
+	created?:string;
 }
 
 export class Alert {

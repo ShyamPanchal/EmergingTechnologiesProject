@@ -9,6 +9,7 @@ import { SessionService } from './authentication/auth/session.service';
 })
 export class AppComponent implements OnInit {
   title = 'COMP308 - Project 2019';
+  today:number;
 
   constructor (
     private authService: AuthenticationService,
