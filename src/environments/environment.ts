@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   url:
-  'http://localhost:1337/'
+  'https://emerging-tech-proj-api.herokuapp.com/'
 };
 
 /*
